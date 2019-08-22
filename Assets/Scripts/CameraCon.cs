@@ -6,80 +6,76 @@ public class CameraCon : MonoBehaviour
 {
     public GameObject level;
     public float rotSpeed;
+    public float scalSpeed;
     bool isRotating = false;
-    Vector3 origin;
+    bool isScaling = false;
     Camera main;
-    float yRot = 0;
-    float xRot = 0;
+    Platform[] platforms;
+    float sc;
     private void Start() {
         main = GetComponent<Camera>();
+        platforms = level.GetComponentsInChildren<Platform>();
     }
     void Update()
     {
         
-        if (Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(0))
             isRotating = true;
-            // origin = Input.mousePosition;
-        }
-
         else if (Input.GetMouseButtonUp(0))
             isRotating = false;
+        
+        else if (Input.GetMouseButtonDown(1))
+            isScaling = true;
+        else if (Input.GetMouseButtonUp(1))
+            isScaling = false;
 
     }
 
     void FixedUpdate()
     {
-        Vector3 r = new Vector3();
         if (isRotating)
         {
-            // level.transform.Rotate(Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
-            // level.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
-            // xRot = Mathf.Clamp(xRot - Input.GetAxis("Mouse Y")*rotSpeed*Time.deltaTime, -90f, 90f);
-            // level.transform.eulerAngles = new Vector3(xRot, level.transform.eulerAngles.y, level.transform.eulerAngles.z);
-            Quaternion rot = Quaternion.Euler(Input.GetAxis("Mouse Y")*rotSpeed*Vector3.right*Time.deltaTime);
-            Quaternion rot2 = Quaternion.Euler(Input.GetAxis("Mouse X")*rotSpeed*Vector3.down*Time.deltaTime);
-            
-            level.transform.rotation = level.transform.rotation * rot;  // Local 
-            level.transform.rotation = rot2 * level.transform.rotation;    //World
+            level.transform.Rotate(Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
+            level.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
 
-            r = level.transform.rotation.eulerAngles;
+            // Quaternion rot = Quaternion.Euler(Input.GetAxis("Mouse Y")*rotSpeed*Vector3.right*Time.deltaTime);
+            // Quaternion rot2 = Quaternion.Euler(Input.GetAxis("Mouse X")*rotSpeed*Vector3.down*Time.deltaTime);
+            
+            // level.transform.rotation = level.transform.rotation * rot;  // Local 
+            // level.transform.rotation = rot2 * level.transform.rotation;    //World
 
-            Debug.Log(r);
-            if (r.x > 90f && r.x < 180f)
-            {
-                o = true;
-                r.x = 70f;
-                // if (rot2.eulerAngles.x > 0)
-                //     rot2 = Quaternion.identity;
+            Vector3 r = level.transform.rotation.eulerAngles;
+            if (r.x > 80 && r.x < 180)
+                r.x = Mathf.Clamp(r.x, 0, 80);
+            else if (r.x < 275 && r.x > 180)
+                r.x = Mathf.Clamp(r.x, 275, 360);
+
+            if (r.y > 90 && r.y < 180)
+                r.y = Mathf.Clamp(r.y, 0, 90);
+            else if (r.y < 270 && r.y > 180)
+                r.y = Mathf.Clamp(r.y, 270, 360);
+
+            r.z=0; // Resets z-axis rotation.
+
+            level.transform.rotation = Quaternion.Euler(r);
+        }
+        else if (isScaling){
+            float scaling = Input.GetAxis("Mouse X") * scalSpeed * Time.deltaTime;
+            // sc += scaling;
+            // if (sc < 0.4f || sc > 1.6f)
+            //     scaling = 0;
+            Vector3 s = new Vector3();
+            foreach(Platform t in platforms){
+                // t.pTransform.position += t.pTransform.position*scaling;
+                // t.pTransform.localScale += t.pTransform.localScale * scaling * 0.1f;
+                s = t.pTransform.localPosition;
+                s += s*scaling;
+                s.x = Mathf.Clamp(s.x, t.minPos.x, t.maxPos.x);
+                s.y = Mathf.Clamp(s.y, t.minPos.y, t.maxPos.y);
+                s.z = Mathf.Clamp(s.z, t.minPos.z, t.maxPos.z);
+                t.pTransform.localPosition = s;
+                
             }
-            else if (r.x < 270f && r.x > 180f)
-            {
-              
-                o = true;
-                r.x = 290f;
-                // if (rot2.eulerAngles.x < 360)
-                //     rot2 = Quaternion.identity;
-            }
-            else 
-            o = false;
-            if (r.z >= 180f)
-                r.z = 0;
-            
-            if (r.y > 90 && r.y < 180){
-                o = true;
-                r.y = 70;
-            }
-            else if (r.y < 270 && r.y > 180){
-                o = true;
-                r.y = 290;
-            }
-            else 
-            o = false;
-            
-            // else if (r.x > 270f && r.x < 360f)
-            //     r.x = 270f;
-            // if (r.x > 90f || r.x < -90f)
-            //     Debug.Log("YO WTF");
         }
     }
 }
