@@ -5,10 +5,12 @@ using UnityEngine;
 public class CameraCon : MonoBehaviour
 {
     public GameObject level;
+    public GameObject fColliders;
     public float rotSpeed;
     public float scalSpeed;
     bool isRotating = false;
     bool isScaling = false;
+    bool isInverted = false;
     Camera main;
     Platform[] platforms;
     float sc;
@@ -19,8 +21,19 @@ public class CameraCon : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)){
+
+            RaycastHit hit;
+            Ray ray = main.ScreenPointToRay(main.transform.position);
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.tag == "xyz") isInverted = false;
+                else isInverted = true;
+            }
+            else 
+                isInverted = false;
             isRotating = true;
+        }
         else if (Input.GetMouseButtonUp(0))
             isRotating = false;
         
@@ -35,45 +48,48 @@ public class CameraCon : MonoBehaviour
     {
         if (isRotating)
         {
-            level.transform.Rotate(Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
-            level.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+            Vector3 r;
+            Transform t = level.transform;
+            if (isInverted){
+                r = t.rotation.eulerAngles;
+                if (r.y > 0 && r.y < 180)
+                    t.Rotate(0, 0, Input.GetAxis("Mouse Y"), Space.Self);
+                else
+                    t.Rotate(0, 0, -Input.GetAxis("Mouse Y"), Space.Self);
+                t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+                fColliders.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
 
-            // Quaternion rot = Quaternion.Euler(Input.GetAxis("Mouse Y")*rotSpeed*Vector3.right*Time.deltaTime);
-            // Quaternion rot2 = Quaternion.Euler(Input.GetAxis("Mouse X")*rotSpeed*Vector3.down*Time.deltaTime);
-            
-            // level.transform.rotation = level.transform.rotation * rot;  // Local 
-            // level.transform.rotation = rot2 * level.transform.rotation;    //World
+                r = t.rotation.eulerAngles;
+                r.x = Mathf.Clamp(r.x, 0, 1); // Fix the third axis rotation.
 
-            Vector3 r = level.transform.rotation.eulerAngles;
-            if (r.x > 80 && r.x < 180)
-                r.x = Mathf.Clamp(r.x, 0, 80);
-            else if (r.x < 275 && r.x > 180)
-                r.x = Mathf.Clamp(r.x, 275, 360);
+                t.rotation = Quaternion.Euler(r);
+            }
+            else{
+                r = t.rotation.eulerAngles;
+                if (r.y > 90 && r.y < 270)
+                    t.Rotate(-Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
+                else
+                    t.Rotate(Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
+                t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+                fColliders.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
 
-            if (r.y > 90 && r.y < 180)
-                r.y = Mathf.Clamp(r.y, 0, 90);
-            else if (r.y < 270 && r.y > 180)
-                r.y = Mathf.Clamp(r.y, 270, 360);
+                r = t.rotation.eulerAngles;
 
-            r.z=0; // Resets z-axis rotation.
+                r.z = Mathf.Clamp(r.z, 0, 1); // Fix the third axis rotation.
 
-            level.transform.rotation = Quaternion.Euler(r);
+                t.rotation = Quaternion.Euler(r);
+            }
         }
         else if (isScaling){
             float scaling = Input.GetAxis("Mouse X") * scalSpeed * Time.deltaTime;
-            // sc += scaling;
-            // if (sc < 0.4f || sc > 1.6f)
-            //     scaling = 0;
             Vector3 s = new Vector3();
-            foreach(Platform t in platforms){
-                // t.pTransform.position += t.pTransform.position*scaling;
-                // t.pTransform.localScale += t.pTransform.localScale * scaling * 0.1f;
-                s = t.pTransform.localPosition;
+            foreach(Platform p in platforms){
+                s = p.pTransform.localPosition;
                 s += s*scaling;
-                s.x = Mathf.Clamp(s.x, t.minPos.x, t.maxPos.x);
-                s.y = Mathf.Clamp(s.y, t.minPos.y, t.maxPos.y);
-                s.z = Mathf.Clamp(s.z, t.minPos.z, t.maxPos.z);
-                t.pTransform.localPosition = s;
+                s.x = Mathf.Clamp(s.x, p.minPos.x, p.maxPos.x);
+                s.y = Mathf.Clamp(s.y, p.minPos.y, p.maxPos.y);
+                s.z = Mathf.Clamp(s.z, p.minPos.z, p.maxPos.z);
+                p.pTransform.localPosition = s;
                 
             }
         }
