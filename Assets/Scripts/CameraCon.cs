@@ -50,35 +50,76 @@ public class CameraCon : MonoBehaviour
         {
             Vector3 r;
             Transform t = level.transform;
+            Quaternion rot_x, rot_y;
+            float rot;
             if (isInverted){
+                rot = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
+                rot_x = Quaternion.Euler(0, -rot, 0);
+                
                 r = t.rotation.eulerAngles;
+                rot = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
                 if (r.y > 0 && r.y < 180)
-                    t.Rotate(0, 0, Input.GetAxis("Mouse Y"), Space.Self);
+                    rot_y = Quaternion.Euler(0,0,rot);
+                    // t.Rotate(0, 0, Input.GetAxis("Mouse Y"), Space.Self);
                 else
-                    t.Rotate(0, 0, -Input.GetAxis("Mouse Y"), Space.Self);
-                t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
-                fColliders.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+                    rot_y = Quaternion.Euler(0,0,-rot);
+                    // t.Rotate(0, 0, -Input.GetAxis("Mouse Y"), Space.Self);
+                // t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+                // fColliders.transform.Rotate(0, -rot, 0, Space.World);
+                fColliders.transform.rotation *= rot_x;
 
+                t.rotation = t.rotation * rot_y;
+                t.rotation = rot_x * t.rotation;
                 r = t.rotation.eulerAngles;
                 r.x = Mathf.Clamp(r.x, 0, 1); // Fix the third axis rotation.
 
                 t.rotation = Quaternion.Euler(r);
+
+                // rot_y = Quaternion.Euler(0, 0, -rot);
+                // foreach (Platform p in platforms)
+                // {
+                //     p.transform.rotation *= rot_y;
+                //     // p.transform.rotation = rot_x * p.transform.rotation;
+                // }
             }
             else{
+                rot = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
+                rot_x = Quaternion.Euler(0, -rot, 0);
+                
                 r = t.rotation.eulerAngles;
+                rot = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
                 if (r.y > 90 && r.y < 270)
-                    t.Rotate(-Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
+                    rot_y = Quaternion.Euler(-rot, 0, 0);
+                    // t.Rotate(-Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
                 else
-                    t.Rotate(Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
-                t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
-                fColliders.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+                    rot_y = Quaternion.Euler(rot, 0, 0);
+                    // t.Rotate(Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
+                // t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+                // fColliders.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
+                fColliders.transform.rotation *= rot_x;
 
+                t.rotation *= rot_y;
+                t.rotation = rot_x * t.rotation;
                 r = t.rotation.eulerAngles;
 
                 r.z = Mathf.Clamp(r.z, 0, 1); // Fix the third axis rotation.
 
                 t.rotation = Quaternion.Euler(r);
+
+
+                // rot_y = Quaternion.Euler(-rot, 0, 0);
+                // foreach (Platform p in platforms)
+                // {
+                //     p.transform.rotation *= rot_y;
+                //     // p.transform.rotation = rot_x * p.transform.rotation;
+                // }
             }
+            // Debug.Log(platforms[0].transform.rotation);
+            foreach(Platform p in platforms)
+                p.transform.rotation = p.initRotation;
+            // rot_y.eulerAngles = -rot_y.eulerAngles;
+            // rot_x.eulerAngles = -rot_x.eulerAngles;
+    
         }
         else if (isScaling){
             float scaling = Input.GetAxis("Mouse X") * scalSpeed * Time.deltaTime;

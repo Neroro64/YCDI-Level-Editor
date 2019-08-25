@@ -5,6 +5,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     public Vector3 minPos, maxPos, minScale, maxScale;
+    public Quaternion initRotation;
     // public float minPosScaling, maxPosScaling, minScaleScaling, maxScaleScaling;
     public Transform pTransform;
 
@@ -35,5 +36,6 @@ public class Platform : MonoBehaviour
         maxScale = transform.localScale + s;
 
         pTransform = transform;
+        initRotation = transform.rotation;
     }
 }

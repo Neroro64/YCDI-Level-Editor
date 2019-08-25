@@ -283,6 +283,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &212906950
 GameObject:
@@ -393,6 +394,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &231619832
 GameObject:
@@ -557,6 +559,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &314873733
 GameObject:
@@ -721,6 +724,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &494995301
 GameObject:
@@ -924,6 +928,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &632659803
 GameObject:
@@ -1034,6 +1039,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &661010234
 GameObject:
@@ -1144,6 +1150,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1345,6 +1352,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
@@ -1610,6 +1618,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1068342933
 GameObject:
@@ -1720,6 +1729,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1150023430
 GameObject:
@@ -1830,6 +1840,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1157255461
 GameObject:
@@ -1940,6 +1951,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1207599343
 GameObject:
@@ -2050,6 +2062,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1352796653
 GameObject:
@@ -2160,6 +2173,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1389570302
 GameObject:
@@ -2270,6 +2284,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1399806047
 GameObject:
@@ -2380,6 +2395,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1438300216
 GameObject:
@@ -2490,6 +2506,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1591316734
 GameObject:
@@ -2503,6 +2520,7 @@ GameObject:
   - component: {fileID: 1591316738}
   - component: {fileID: 1591316737}
   - component: {fileID: 1591316736}
+  - component: {fileID: 1591316739}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -2583,6 +2601,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591316734}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1591316739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591316734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minPos: {x: 0, y: 0, z: 0}
+  maxPos: {x: 0, y: 0, z: 0}
+  minScale: {x: 0, y: 0, z: 0}
+  maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
+  pTransform: {fileID: 0}
 --- !u!1 &1616684029
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,6 +2728,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1646435973
 GameObject:
@@ -2802,6 +2839,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1647903708
 GameObject:
@@ -2912,6 +2950,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1729131420
 GameObject:
@@ -3022,6 +3061,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1802360415
 GameObject:
@@ -3132,6 +3172,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1857382463
 GameObject:
@@ -3242,6 +3283,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1860400132
 GameObject:
@@ -3409,6 +3451,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1864613299
 GameObject:
@@ -3519,6 +3562,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1901416847
 GameObject:
@@ -3629,6 +3673,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &2070417546
 GameObject:

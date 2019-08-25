@@ -283,6 +283,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &212906950
 GameObject:
@@ -393,6 +394,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &231619832
 GameObject:
@@ -557,6 +559,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &314873733
 GameObject:
@@ -721,7 +724,101 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
+--- !u!1 &494995301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 494995302}
+  - component: {fileID: 494995305}
+  - component: {fileID: 494995304}
+  - component: {fileID: 494995303}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &494995302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494995301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 1034731408}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &494995303
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494995301}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &494995304
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494995301}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &494995305
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494995301}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &599540985
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +928,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &632659803
 GameObject:
@@ -941,6 +1039,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &661010234
 GameObject:
@@ -1051,6 +1150,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1252,6 +1352,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
@@ -1437,7 +1538,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 494995302}
   m_Father: {fileID: 1860400133}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1516,6 +1618,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1068342933
 GameObject:
@@ -1626,6 +1729,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1150023430
 GameObject:
@@ -1736,6 +1840,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1157255461
 GameObject:
@@ -1846,6 +1951,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1207599343
 GameObject:
@@ -1956,6 +2062,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1352796653
 GameObject:
@@ -2066,6 +2173,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1389570302
 GameObject:
@@ -2176,6 +2284,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1399806047
 GameObject:
@@ -2286,6 +2395,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1438300216
 GameObject:
@@ -2396,6 +2506,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1591316734
 GameObject:
@@ -2598,6 +2709,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1646435973
 GameObject:
@@ -2708,6 +2820,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1647903708
 GameObject:
@@ -2818,6 +2931,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1729131420
 GameObject:
@@ -2928,6 +3042,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1802360415
 GameObject:
@@ -3038,6 +3153,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1857382463
 GameObject:
@@ -3148,6 +3264,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1860400132
 GameObject:
@@ -3315,6 +3432,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1864613299
 GameObject:
@@ -3425,6 +3543,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &1901416847
 GameObject:
@@ -3535,6 +3654,7 @@ MonoBehaviour:
   maxPos: {x: 0, y: 0, z: 0}
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0, w: 0}
   pTransform: {fileID: 0}
 --- !u!1 &2070417546
 GameObject:
