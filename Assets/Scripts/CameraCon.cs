@@ -11,9 +11,14 @@ public class CameraCon : MonoBehaviour
     bool isRotating = false;
     bool isScaling = false;
     bool isInverted = false;
+    bool finalizeRotation = false;
+    Quaternion startRotation;
+    Quaternion finalRotation;
+    float step;
     Camera main;
     Platform[] platforms;
-    float sc;
+    private float currentZoom = 1f;
+    private float currentLevel = 1f;
     private void Start() {
         main = GetComponent<Camera>();
         platforms = level.GetComponentsInChildren<Platform>();
@@ -34,8 +39,17 @@ public class CameraCon : MonoBehaviour
                 isInverted = false;
             isRotating = true;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0)){
             isRotating = false;
+            finalizeRotation = true;
+            Vector3 rot = level.transform.rotation.eulerAngles;
+            rot.x = getClosest(rot.x);
+            rot.y = getClosest(rot.y);
+            rot.z = getClosest(rot.z);
+            startRotation = level.transform.rotation;
+            finalRotation = Quaternion.Euler(rot);
+            step = 0;
+        }
         
         else if (Input.GetMouseButtonDown(1))
             isScaling = true;
@@ -48,77 +62,27 @@ public class CameraCon : MonoBehaviour
     {
         if (isRotating)
         {
-            Vector3 r;
-            Transform t = level.transform;
-            Quaternion rot_x, rot_y;
-            float rot;
-            if (isInverted){
-                rot = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
-                rot_x = Quaternion.Euler(0, -rot, 0);
-                
-                r = t.rotation.eulerAngles;
-                rot = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
-                if (r.y > 0 && r.y < 180)
-                    rot_y = Quaternion.Euler(0,0,rot);
-                    // t.Rotate(0, 0, Input.GetAxis("Mouse Y"), Space.Self);
-                else
-                    rot_y = Quaternion.Euler(0,0,-rot);
-                    // t.Rotate(0, 0, -Input.GetAxis("Mouse Y"), Space.Self);
-                // t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
-                // fColliders.transform.Rotate(0, -rot, 0, Space.World);
-                fColliders.transform.rotation *= rot_x;
-
-                t.rotation = t.rotation * rot_y;
-                t.rotation = rot_x * t.rotation;
-                r = t.rotation.eulerAngles;
-                r.x = Mathf.Clamp(r.x, 0, 1); // Fix the third axis rotation.
-
-                t.rotation = Quaternion.Euler(r);
-
-                // rot_y = Quaternion.Euler(0, 0, -rot);
-                // foreach (Platform p in platforms)
-                // {
-                //     p.transform.rotation *= rot_y;
-                //     // p.transform.rotation = rot_x * p.transform.rotation;
-                // }
+            float inputX = Input.GetAxis("Mouse X");
+            float inputY = Input.GetAxis("Mouse Y");
+            Quaternion rot;
+            float dir;
+            if (Mathf.Abs(inputX) > Mathf.Abs(inputY)){
+                dir = inputX * rotSpeed * Time.deltaTime;
+                rot = Quaternion.Euler(-dir*Vector3.up);
             }
             else{
-                rot = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
-                rot_x = Quaternion.Euler(0, -rot, 0);
-                
-                r = t.rotation.eulerAngles;
-                rot = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
-                if (r.y > 90 && r.y < 270)
-                    rot_y = Quaternion.Euler(-rot, 0, 0);
-                    // t.Rotate(-Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
-                else
-                    rot_y = Quaternion.Euler(rot, 0, 0);
-                    // t.Rotate(Input.GetAxis("Mouse Y"), 0, 0, Space.Self);
-                // t.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
-                // fColliders.transform.Rotate(0, -Input.GetAxis("Mouse X"), 0, Space.World);
-                fColliders.transform.rotation *= rot_x;
-
-                t.rotation *= rot_y;
-                t.rotation = rot_x * t.rotation;
-                r = t.rotation.eulerAngles;
-
-                r.z = Mathf.Clamp(r.z, 0, 1); // Fix the third axis rotation.
-
-                t.rotation = Quaternion.Euler(r);
-
-
-                // rot_y = Quaternion.Euler(-rot, 0, 0);
-                // foreach (Platform p in platforms)
-                // {
-                //     p.transform.rotation *= rot_y;
-                //     // p.transform.rotation = rot_x * p.transform.rotation;
-                // }
+                dir = inputY * rotSpeed * Time.deltaTime;
+                rot = Quaternion.Euler(dir*Vector3.right);
             }
-            // Debug.Log(platforms[0].transform.rotation);
-            foreach(Platform p in platforms)
+
+            level.transform.Rotate(rot.eulerAngles, Space.World);
+            fColliders.transform.LookAt(level.transform.forward);
+            fColliders.transform.rotation = Quaternion.Euler(0, fColliders.transform.rotation.eulerAngles.y, 0);
+            
+            foreach (Platform p in platforms)
+            {
                 p.transform.rotation = p.initRotation;
-            // rot_y.eulerAngles = -rot_y.eulerAngles;
-            // rot_x.eulerAngles = -rot_x.eulerAngles;
+            }
     
         }
         else if (isScaling){
@@ -134,5 +98,66 @@ public class CameraCon : MonoBehaviour
                 
             }
         }
+        else if (finalizeRotation){
+            endRotating();
+            foreach (Platform p in platforms)
+            {
+                p.transform.rotation = p.initRotation;
+            }
+        }
+        
+
+    }
+
+    private void endRotating(){ // 0, 90, 180, 270
+        level.transform.rotation = Quaternion.Slerp(startRotation, finalRotation, step);
+        step += Time.deltaTime*2;
+        if (step >= 1)
+            finalizeRotation = false;
+    }
+
+    private float getClosest(float v){
+        float min_diff = v;
+        float diff;
+        float id = 0;
+        
+        diff = Mathf.Abs(90-v);
+        if (diff < min_diff){
+            id = 90f;
+            min_diff = diff;
+        }
+
+        diff = Mathf.Abs(180-v);
+        if (diff < min_diff)
+        {
+            id = 180f;
+            min_diff = diff;
+        }
+
+        diff = Mathf.Abs(270 - v);
+        if (diff < min_diff)
+        {
+            id =  270f;
+            min_diff = diff;
+        }
+
+        diff = Mathf.Abs(360 - v);
+        if (diff < min_diff)
+        {
+            id = 0f;
+            min_diff = diff;
+        }
+        return id;
+    }
+
+    public void zoom(float v){
+        transform.Translate(0, 0, (v - currentZoom)*5);
+        currentZoom = v;
+        isRotating = false;
+    }
+    public void move(float v){
+        transform.Translate(0, (v-currentLevel)*5, 0);
+        currentLevel = v;
+        isRotating = false;
     }
 }
