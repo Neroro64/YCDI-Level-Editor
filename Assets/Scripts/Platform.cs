@@ -11,10 +11,11 @@ public class Platform : MonoBehaviour
     public Transform pTransform;
     public int row;
     public int column;
-    public bool finalizeRotation;
-    public float step = 0;
-    public Quaternion startRotation;
-    public Quaternion finalRotation;
+    // public bool finalizeRotation;
+    // public float step = 0;
+    // public Quaternion startRotation;
+    // public Quaternion finalRotation;
+    Transform parent;
     private void Start() {;
         /*Initiating the limits and defualt rotation */
         Vector3 s = new Vector3();
@@ -43,6 +44,7 @@ public class Platform : MonoBehaviour
         maxScale = transform.localScale + s;
 
         pTransform = transform;
+        parent = transform.parent;
         updateRotation();
         updateRnC();
 
@@ -58,13 +60,19 @@ public class Platform : MonoBehaviour
         column = Mathf.RoundToInt(transform.position.x);
     }
 
-    private void FixedUpdate() {
-        if (finalizeRotation){
-            ControlFunctions.endRotating(gameObject, startRotation, finalRotation, ref step, out finalizeRotation);
-            if (!finalizeRotation){
-                updateRotation();
-                updateRnC();
-            }
-        }
+    public void wrapUp(){
+        transform.SetParent(parent);
+        updateRotation();
+        updateRnC();
     }
+
+    // private void FixedUpdate() {
+    //     if (finalizeRotation){
+    //         ControlFunctions.endRotating(gameObject, startRotation, finalRotation, ref step, out finalizeRotation);
+    //         if (!finalizeRotation){
+    //             updateRotation();
+    //             updateRnC();
+    //         }
+    //     }
+    // }
 }

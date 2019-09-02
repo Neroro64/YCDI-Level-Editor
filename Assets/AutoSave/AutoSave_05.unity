@@ -4376,7 +4376,7 @@ MonoBehaviour:
   sys: {fileID: 1446053603}
   main: {fileID: 963194227}
   level: {fileID: 1860400134}
-  rotSpeed: 0
+  rotSpeed: 10
 --- !u!1 &1729131420
 GameObject:
   m_ObjectHideFlags: 0

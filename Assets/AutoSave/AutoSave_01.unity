@@ -2182,6 +2182,36 @@ MonoBehaviour:
   pTransform: {fileID: 0}
   row: 0
   column: 0
+--- !u!1 &1035353267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1035353268}
+  m_Layer: 0
+  m_Name: Rotator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1035353268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035353267}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1860400133}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068342933
 GameObject:
   m_ObjectHideFlags: 0
@@ -4292,6 +4322,8 @@ MonoBehaviour:
   sys: {fileID: 1446053603}
   main: {fileID: 963194227}
   level: {fileID: 1860400134}
+  rotator: {fileID: 1035353268}
+  rotSpeed: 50
 --- !u!1 &1729131420
 GameObject:
   m_ObjectHideFlags: 0
@@ -4869,6 +4901,7 @@ Transform:
   - {fileID: 395265262}
   - {fileID: 1616684030}
   - {fileID: 1646435974}
+  - {fileID: 1035353268}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

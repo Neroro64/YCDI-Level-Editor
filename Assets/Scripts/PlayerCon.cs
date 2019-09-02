@@ -8,6 +8,9 @@ public class PlayerCon : MonoBehaviour
     public SystemController sys;
     public Camera main;
     public Level level;
+    public Transform rotatorX;
+    public Transform rotatorY;
+    Transform rotator;
 
     [Header("Public variables")]
     public int rotSpeed;
@@ -15,7 +18,13 @@ public class PlayerCon : MonoBehaviour
     bool isRotating = false;
     Platform[] hP = new Platform[9];
     Platform[] vP = new Platform[9];
+
     char dir;
+    bool finalizeRotation;
+    Quaternion startRot;
+    Quaternion finalRot;
+    float step;
+
 
     private void Update() {
         if (sys.mode == 1 && !EventSystem.current.IsPointerOverGameObject()){
@@ -36,31 +45,16 @@ public class PlayerCon : MonoBehaviour
             else if (Input.GetMouseButtonUp(0)){
                 isRotating = false;
                 Vector3 rot; 
-                if (dir == 'H'){
-                    foreach(Platform p in hP){
-                        rot = p.transform.rotation.eulerAngles;
-                        rot.x = ControlFunctions.getClosest(rot.x);
-                        rot.y = ControlFunctions.getClosest(rot.y);
-                        rot.z = ControlFunctions.getClosest(rot.z);
-                        p.startRotation = p.transform.rotation;
-                        p.finalRotation = Quaternion.Euler(rot);
-                        p.step = 0;
-                        p.finalizeRotation = true;
-                    }
-                }
-                else{
-                    foreach (Platform p in vP)
-                    {
-                        rot = p.transform.rotation.eulerAngles;
-                        rot.x = ControlFunctions.getClosest(rot.x);
-                        rot.y = ControlFunctions.getClosest(rot.y);
-                        rot.z = ControlFunctions.getClosest(rot.z);
-                        p.startRotation = p.transform.rotation;
-                        p.finalRotation = Quaternion.Euler(rot);
-                        p.step = 0;
-                        p.finalizeRotation = true;
-                    }
-                }
+                rotator = (dir=='H')? rotatorX : rotatorY;
+                rot = rotator.rotation.eulerAngles;
+                rot.x = ControlFunctions.getClosest(rot.x);
+                rot.y = ControlFunctions.getClosest(rot.y);
+                rot.z = ControlFunctions.getClosest(rot.z);
+                startRot = rotator.rotation;
+                finalRot = Quaternion.Euler(rot);
+                step = 0;
+
+                finalizeRotation = true;
             }
         }
     }
@@ -72,12 +66,27 @@ public class PlayerCon : MonoBehaviour
             Quaternion rot = ControlFunctions.calcRot1D(inputX, inputY, rotSpeed, out dir);
             if (dir == 'H'){
                 foreach (Platform p in hP){
-                    p.transform.Rotate(rot.eulerAngles, Space.World);
+                    p.transform.SetParent(rotatorX);
                 }
+                rotatorX.Rotate(rot.eulerAngles, Space.World);
             }
             else{
                 foreach(Platform p in vP){
-                    p.transform.Rotate(rot.eulerAngles, Space.World);
+                    p.transform.SetParent(rotatorY);
+                }
+                rotatorY.Rotate(rot.eulerAngles, Space.World);
+            }
+        }
+        else if (finalizeRotation){
+            ControlFunctions.endRotating(rotator.gameObject, startRot, finalRot, ref step, out finalizeRotation);
+            if (!finalizeRotation){
+                for(int i = 0; i < 9; i++){
+                    if(vP[i] == hP[i])
+                        vP[i].wrapUp();
+                    else{
+                        vP[i].wrapUp();
+                        hP[i].wrapUp();
+                    }
                 }
             }
         }
