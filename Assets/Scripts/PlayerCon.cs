@@ -18,31 +18,35 @@ public class PlayerCon : MonoBehaviour
     bool isRotating = false;
     Platform[] hP = new Platform[9];
     Platform[] vP = new Platform[9];
+    Platform[] zP = new Platform[9];
 
-    char dir;
+    char dir = '0';
     bool finalizeRotation;
     Quaternion startRot;
     Quaternion finalRot;
     float step;
 
-
     private void Update() {
         if (sys.mode == 1 && !EventSystem.current.IsPointerOverGameObject()){
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonDown(0) && !finalizeRotation) {
                 RaycastHit hit;
                 Ray r = main.ScreenPointToRay(Input.mousePosition);
                 if(Physics.Raycast(r, out hit, 20, 1<<9)){  // Max distance may be reduced
                     Platform p = hit.collider.GetComponent<Platform>();
-                    for (int i = 0, k=0,j = 0; j < 27; j++){
-                        if (level.platforms[j].row == p.row)
+                    p.updateRnC();
+                    for (int i = 0, k=0, l=0,j = 0; j < 27; j++){
+                        level.platforms[j].updateRnC();
+                        if (i < 9 && level.platforms[j].row == p.row)
                             hP[i++] = level.platforms[j];    
-                        if (level.platforms[j].column == p.column)
+                        if (k < 9 && level.platforms[j].column == p.column)
                             vP[k++] = level.platforms[j];
+                        if (l < 9 && level.platforms[j].z == p.z)
+                            zP[l++] = level.platforms[j];
                     }
                     isRotating = true;
                 }
             }
-            else if (Input.GetMouseButtonUp(0)){
+            else if (Input.GetMouseButtonUp(0) && isRotating){
                 isRotating = false;
                 Vector3 rot; 
                 rotator = (dir=='H')? rotatorX : rotatorY;
@@ -52,42 +56,57 @@ public class PlayerCon : MonoBehaviour
                 rot.z = ControlFunctions.getClosest(rot.z);
                 startRot = rotator.rotation;
                 finalRot = Quaternion.Euler(rot);
-                step = 0;
-
+                step = 0.1f;
+                dir = '0';
                 finalizeRotation = true;
-            }
+            } 
         }
+        if (finalizeRotation)
+            {
+                ControlFunctions.endRotating(rotator.gameObject, startRot, finalRot, ref step, ref finalizeRotation);
+                for (int i = 0; i < 9; i++)
+                {
+                    vP[i].resetRot();
+                    hP[i].resetRot();
+                }
+                if (!finalizeRotation)
+                {
+                    for (int i = 0; i < 9; i++)
+                    {
+                        vP[i].wrapUp();
+                        hP[i].wrapUp();
+                    }
+                }
+            }
     }
 
     private void FixedUpdate() {
         if (isRotating){
             float inputX = Input.GetAxis("Mouse X");
             float inputY = Input.GetAxis("Mouse Y");
-            Quaternion rot = ControlFunctions.calcRot1D(inputX, inputY, rotSpeed, out dir);
-            if (dir == 'H'){
+            Quaternion rot;
+            if (dir=='0'){
+                rot = ControlFunctions.calcRot1D(inputX, inputY, rotSpeed, ref dir);
+                rotatorX.transform.rotation = hP[0].transform.localRotation;
+                rotatorY.transform.rotation = vP[0].transform.localRotation;
+            }
+            else if (dir == 'H'){
+                rot = Quaternion.Euler(-inputX*Vector3.up);
                 foreach (Platform p in hP){
                     p.transform.SetParent(rotatorX);
                 }
                 rotatorX.Rotate(rot.eulerAngles, Space.World);
             }
             else{
+                rot = Quaternion.Euler(inputY*Vector3.right);
                 foreach(Platform p in vP){
                     p.transform.SetParent(rotatorY);
                 }
                 rotatorY.Rotate(rot.eulerAngles, Space.World);
             }
-        }
-        else if (finalizeRotation){
-            ControlFunctions.endRotating(rotator.gameObject, startRot, finalRot, ref step, out finalizeRotation);
-            if (!finalizeRotation){
-                for(int i = 0; i < 9; i++){
-                    if(vP[i] == hP[i])
-                        vP[i].wrapUp();
-                    else{
-                        vP[i].wrapUp();
-                        hP[i].wrapUp();
-                    }
-                }
+            for (int i = 0; i < 9; i++){
+                vP[i].resetRot();
+                hP[i].resetRot();
             }
         }
     }

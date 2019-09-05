@@ -1,19 +1,16 @@
 using UnityEngine;
 
 public class ControlFunctions{
-    public static Quaternion calcRot1D(float inputX, float inputY, float speed, out char direction){
+    public static Quaternion calcRot1D(float inputX, float inputY, float speed, ref char direction){
         Quaternion rot;
-        float dir;
         if (Mathf.Abs(inputX) > Mathf.Abs(inputY))
         {
-            dir = inputX * speed * Time.deltaTime;
-            rot = Quaternion.Euler(-dir * Vector3.up);
+            rot = Quaternion.Euler(-inputX * Vector3.up);
             direction = 'H';
         }
         else
         {
-            dir = inputY * speed * Time.deltaTime;
-            rot = Quaternion.Euler(dir * Vector3.right);
+            rot = Quaternion.Euler(inputY * Vector3.right);
             direction = 'V';
         }
 
@@ -36,16 +33,18 @@ public class ControlFunctions{
 
         return rot;
     }
+
     public static void endRotating(GameObject g, 
         Quaternion startRotation, Quaternion finalRotation, 
-        ref float step, out bool finalizeRotation)
+        ref float step, ref bool finalizeRotation)
     { 
-        g.transform.rotation = Quaternion.Slerp(startRotation, finalRotation, step);
-        step += Time.deltaTime;
-        if (step >= 1)
+
+        g.transform.rotation = Quaternion.Lerp(startRotation, finalRotation, step);
+        step += Time.deltaTime * (1 / step);
+        if (step > 0.98f){
+            g.transform.rotation = finalRotation;
             finalizeRotation = false;
-        else 
-            finalizeRotation = true;
+        }
     }
 
 
