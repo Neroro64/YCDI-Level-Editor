@@ -10,7 +10,6 @@ public class CameraCon : MonoBehaviour
     public SystemController sys;
     public GameObject fColliders; //For checking facing direction
     [Header("Variables")]
-    public float rotSpeed;
     public float scalSpeed;
 
     /*Private variables for rotation and scaling */
@@ -26,7 +25,7 @@ public class CameraCon : MonoBehaviour
     Camera main;
     private float currentZoom = 1f;
     private float currentLevel = 1f;
-    private float accScale = 0;
+    private float accScale = 1f;
     private void Start() {
         main = GetComponent<Camera>();
     }
@@ -46,6 +45,7 @@ public class CameraCon : MonoBehaviour
                 else 
                     isInverted = false;
                 isRotating = true;
+                
             }
             else if (Input.GetMouseButtonUp(0)){
                 isRotating = false;
@@ -60,10 +60,13 @@ public class CameraCon : MonoBehaviour
             }
         }    
         
-        if (Input.GetMouseButtonDown(1) && !finalizeRotation)
+        if (Input.GetMouseButtonDown(1) && !finalizeRotation){
             isScaling = true;
-        else if (Input.GetMouseButtonUp(1))
+        }
+        else if (Input.GetMouseButtonUp(1)){
             isScaling = false;
+            sys.rotSpeed = (int) ( sys.initRotSpeed * accScale);
+        }
 
 
         if (finalizeRotation)
@@ -82,7 +85,7 @@ public class CameraCon : MonoBehaviour
         if (isRotating){
             float inputX = Input.GetAxis("Mouse X");
             float inputY = Input.GetAxis("Mouse Y");
-            Quaternion rot = ControlFunctions.calcRot1D(inputX, inputY, rotSpeed);
+            Quaternion rot = ControlFunctions.calcRot1D(inputX, inputY, sys.rotSpeed);
             level.transform.Rotate(rot.eulerAngles, Space.World);
             fColliders.transform.LookAt(level.transform.forward);
             fColliders.transform.rotation = Quaternion.Euler(0, fColliders.transform.rotation.eulerAngles.y, 0);
@@ -93,21 +96,13 @@ public class CameraCon : MonoBehaviour
             }
         }
         else if (isScaling){
-            float scaling = Input.GetAxis("Mouse X") * scalSpeed * Time.deltaTime;
+            float scaling = Input.GetAxis("Mouse X") * Time.deltaTime;
             accScale += scaling;
-            accScale = Mathf.Clamp(accScale, -0.06f, 0.4f); // need to tuned
-            if (accScale >= 0.4f || accScale <= -0.06f)
+            accScale = Mathf.Clamp(accScale, 1, 1.5f); // need to tuned
+            if (accScale >= 1.5f || accScale <= 1f)
                 return;
-            Vector3 s = new Vector3();
             foreach(Platform p in level.platforms){   // Can be optimized bere
-                s = p.transform.localPosition;
-                s += s * scaling;
-                // s.x = Mathf.Clamp(s.x, p.minPos.x, p.maxPos.x);
-                // s.y = Mathf.Clamp(s.y, p.minPos.y, p.maxPos.y);
-                // s.z = Mathf.Clamp(s.z, p.minPos.z, p.maxPos.z);
-                p.transform.localPosition = s;
-                // p.updatePosition();
-                
+                p.transform.localPosition += p.transform.localPosition * scaling;
             }
         }
       

@@ -6,7 +6,14 @@ public class SystemController : MonoBehaviour
 {
     public int mode = 0; // 0 = view mode, 1 = rotate mode
 
+    public int rotSpeed;
+    public int initRotSpeed;
+    
     public void setMode(int i){
         mode = i;
+    }
+
+    private void Start() {
+        initRotSpeed = rotSpeed;    
     }
 }

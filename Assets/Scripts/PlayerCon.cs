@@ -13,7 +13,6 @@ public class PlayerCon : MonoBehaviour
     Transform rotator;
 
     [Header("Public variables")]
-    public int rotSpeed;
     int tR, tC;
     bool isRotating = false;
     Platform[] hP = new Platform[9];
@@ -22,15 +21,18 @@ public class PlayerCon : MonoBehaviour
 
     char dir = '0';
     bool finalizeRotation;
+    bool isInside;
     Quaternion startRot;
     Quaternion finalRot;
     float step;
-
+    
+    private Vector2 initPos;
     private void Update() {
         if (sys.mode == 1 && !EventSystem.current.IsPointerOverGameObject()){
             if (Input.GetMouseButtonDown(0) && !finalizeRotation) {
                 RaycastHit hit;
                 Ray r = main.ScreenPointToRay(Input.mousePosition);
+                initPos = main.ScreenToViewportPoint(Input.mousePosition);
                 if(Physics.Raycast(r, out hit, 20, 1<<9)){  // Max distance may be reduced
                     Platform p = hit.collider.GetComponent<Platform>();
                     p.updateRnC();
@@ -44,6 +46,7 @@ public class PlayerCon : MonoBehaviour
                             zP[l++] = level.platforms[j];
                     }
                     isRotating = true;
+                    isInside = true;
                 }
             }
             else if (Input.GetMouseButtonUp(0) && isRotating){
@@ -85,24 +88,31 @@ public class PlayerCon : MonoBehaviour
             float inputX = Input.GetAxis("Mouse X");
             float inputY = Input.GetAxis("Mouse Y");
             Quaternion rot;
-            if (dir=='0'){
-                rot = ControlFunctions.calcRot1D(inputX, inputY, rotSpeed, ref dir);
+            if (dir=='0' || (isInside && 
+            ControlFunctions.isInsideRadius(
+                main.ScreenToViewportPoint(
+                    Input.mousePosition), initPos, 2f))){
+                rot = ControlFunctions.calcRot1D(inputX, inputY, sys.rotSpeed, ref dir);
                 rotatorX.transform.rotation = hP[0].transform.localRotation;
                 rotatorY.transform.rotation = vP[0].transform.localRotation;
             }
             else if (dir == 'H'){
-                rot = Quaternion.Euler(-inputX*Vector3.up);
+                rot = Quaternion.Euler(-inputX*sys.rotSpeed*Time.deltaTime*Vector3.up);
                 foreach (Platform p in hP){
                     p.transform.SetParent(rotatorX);
                 }
                 rotatorX.Rotate(rot.eulerAngles, Space.World);
+                
+                isInside = false;
             }
             else{
-                rot = Quaternion.Euler(inputY*Vector3.right);
+                rot = Quaternion.Euler(inputY*sys.rotSpeed*Time.deltaTime*Vector3.right);
                 foreach(Platform p in vP){
                     p.transform.SetParent(rotatorY);
                 }
                 rotatorY.Rotate(rot.eulerAngles, Space.World);
+                
+                isInside = false;
             }
             for (int i = 0; i < 9; i++){
                 vP[i].resetRot();

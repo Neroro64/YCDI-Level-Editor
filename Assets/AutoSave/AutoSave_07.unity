@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -428,10 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -674,10 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -876,10 +870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -1042,10 +1033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -1359,10 +1347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -1508,10 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -1621,10 +1603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -1825,10 +1804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -2007,8 +1983,7 @@ MonoBehaviour:
   level: {fileID: 1860400134}
   sys: {fileID: 1446053603}
   fColliders: {fileID: 2070417546}
-  rotSpeed: 50
-  scalSpeed: 1
+  scalSpeed: 2
 --- !u!1 &998574902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,10 +2180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -2348,10 +2320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -2563,10 +2532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -2676,10 +2642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -2789,10 +2752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -3185,10 +3145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -3334,10 +3291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -3447,10 +3401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -3626,10 +3577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -3780,6 +3728,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
+  rotSpeed: 100
+  initRotSpeed: 0
 --- !u!1 &1591008217
 GameObject:
   m_ObjectHideFlags: 0
@@ -3960,10 +3910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -4073,10 +4020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -4186,10 +4130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -4299,10 +4240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -4355,7 +4293,6 @@ MonoBehaviour:
   level: {fileID: 1860400134}
   rotatorX: {fileID: 1035353268}
   rotatorY: {fileID: 575811524}
-  rotSpeed: 50
 --- !u!1 &1729131420
 GameObject:
   m_ObjectHideFlags: 0
@@ -4461,10 +4398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -4850,10 +4784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -4963,10 +4894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -5149,10 +5077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -5262,10 +5187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0
@@ -5375,10 +5297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204a9aa0c5f471d1591bd0a713f34497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  minScale: {x: 0, y: 0, z: 0}
-  maxScale: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 0, z: 0}
   initRotation: {x: 0, y: 0, z: 0, w: 0}
   row: 0
   column: 0

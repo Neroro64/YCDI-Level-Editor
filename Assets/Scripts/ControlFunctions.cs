@@ -40,7 +40,7 @@ public class ControlFunctions{
     { 
 
         g.transform.rotation = Quaternion.Lerp(startRotation, finalRotation, step);
-        step += Time.deltaTime * (1 / step);
+        step += Time.deltaTime * (1 / (0.1f + 0.5f*Mathf.Exp(-step)));  // Can be tuned
         if (step > 0.98f){
             g.transform.rotation = finalRotation;
             finalizeRotation = false;
@@ -82,6 +82,16 @@ public class ControlFunctions{
             min_diff = diff;
         }
         return id;
+    }
+
+    public static bool isInsideRadius(Vector2 pos, Vector2 initPos, float r){
+        float x = (pos.x-initPos.x) * 10;
+        float y = (pos.y-initPos.y) * 10;
+        
+        if (x*x + y*y < r){
+            return true;
+        }
+        return false;
     }
 
 

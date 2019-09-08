@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2007,8 +2007,8 @@ MonoBehaviour:
   level: {fileID: 1860400134}
   sys: {fileID: 1446053603}
   fColliders: {fileID: 2070417546}
-  rotSpeed: 50
-  scalSpeed: 1
+  rotSpeed: 100
+  scalSpeed: 2
 --- !u!1 &998574902
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,7 +4355,7 @@ MonoBehaviour:
   level: {fileID: 1860400134}
   rotatorX: {fileID: 1035353268}
   rotatorY: {fileID: 575811524}
-  rotSpeed: 50
+  rotSpeed: 100
 --- !u!1 &1729131420
 GameObject:
   m_ObjectHideFlags: 0
