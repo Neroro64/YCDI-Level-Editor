@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - xyz
+  - Platform
+  - Link
   layers:
   - Default
   - TransparentFX

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SystemController : MonoBehaviour
 {
-    public int mode = 0; // 0 = view mode, 1 = rotate mode
-
+    public int mode;
     public int rotSpeed;
     public int initRotSpeed;
     

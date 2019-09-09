@@ -5,17 +5,20 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     [Header("Public variables")]
+    public Level level;
     public Vector3 initPosition;
     public Quaternion initRotation;
     public int row;
     public int column;
     public int z;
-    Transform parent;
+    // Transform parent;
+    bool enabled = false;
     private void Start() {
-        parent = transform.parent;
+        level = transform.parent.gameObject.GetComponent<Level>();
         updateRotation();
         updatePosition();
         updateRnC();
+        Enable();
     }
 
     public void resetRot(){
@@ -39,7 +42,17 @@ public class Platform : MonoBehaviour
     }
 
     public void wrapUp(){
-        transform.SetParent(parent);
+        transform.SetParent(level.transform);
+    }
+
+    public void Enable(){
+        enabled = !enabled;
+        MeshRenderer mr = this.GetComponent<MeshRenderer>();
+        if (enabled)
+            mr.material = level.materials[0];
+        else
+            mr.material = level.materials[1];
+        
     }
 
 }
