@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 public class Builder : MonoBehaviour
 {
     public SystemController sys;
     public GameObject Link;
     public Camera main;
     public Level level;
+    public Text debugOut;
 
     GameObject[] nodes = new GameObject[2];
     [SerializeField]
-    Material[] materials;
+    Material[] link_materials;
+    [SerializeField]
+    Material[] plat_materials;
     int counter = 0;
+    int mat_counter = 1;
+    int numLink = 0;
+    public List<LineRenderer> links = new List<LineRenderer>();
+    public List<int> link_color = new List<int>();
     // List<LineRenderer> links = new List<LineRenderer>();
     private int mode = 0; // 0 = line, 1 =  platform, 2 = change color
     private void Update() {
@@ -22,19 +29,9 @@ public class Builder : MonoBehaviour
                 Ray ray = main.ScreenPointToRay(Input.mousePosition);
                 switch(mode){
                     case 0: addLine(ray); break;
-                    case 1: addPlat(ray); break;
-                    case 2: recolor(ray); break;
-                }
-            }
-            else if (Input.GetMouseButtonDown(1)){
-                Ray r = main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(r, out hit, 20, 1<<9)){
-                    string t = hit.collider.gameObject.tag;
-                    if (t=="Link")
-                        Destroy(hit.collider.gameObject);
-                    else if (t == "Platform")
-                        hit.collider.gameObject.GetComponent<Platform>().Enable(); 
+                    case 1: delLine(ray); break;
+                    case 2: addPlat(ray); break;
+                    case 3: recolor(ray); break;
                 }
             }
         }
@@ -49,53 +46,36 @@ public class Builder : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 20, 1<<9))
         {
             GameObject g = hit.collider.gameObject;
-            Debug.Log(g.name);
-            Debug.Log(g.transform.localPosition);
-            if (g.tag == "Platform"){
+            Platform p = g.GetComponent<Platform>();
+            if (p != null && p.enabled){
                 nodes[counter] = g;
                 if (counter == 1){
-                    GameObject link;
-                    LineRenderer lr;
+                    // GameObject link;
+                    // LineRenderer lr;
 
                     Vector3 pos0 =  nodes[0].transform.localPosition;
                     Vector3 pos1 =  nodes[1].transform.localPosition;
-                    int which = 0;
-                    if ((lr = g.GetComponent<LineRenderer>()) != null){
-                        link = g;
-                        which = 1;
-                    }
-                    else if ((lr = nodes[0].GetComponent<LineRenderer>()) != null)
-                        link = nodes[0];
-                    else{
-                        link = Instantiate<GameObject>(Link, level.transform);
-                        link.AddComponent<LineRenderer>();
-                    }
-                    if (lr == null){
-                        lr = link.GetComponent<LineRenderer>();
-                        lr.useWorldSpace = true;
-                        lr.positionCount = 2;
-                        lr.SetPosition(0,pos0);
-                        lr.SetPosition(1, pos1);
-                    }
-                    else{
-                        lr.useWorldSpace = true;
-                        lr.positionCount += 1;
-                        lr.SetPosition(lr.positionCount-1, nodes[which].transform.localPosition);
-                    }
 
-                    link.AddComponent<BoxCollider>();
-                    BoxCollider b = link.GetComponent<BoxCollider>();
-                    Vector3 v = new Vector3();
-                    v.x = (pos1.x + pos0.x) / 2;
-                    v.y = (pos1.y + pos0.y) / 2;
-                    v.z = (pos1.z + pos0.z) / 2;
-                    b.center = v;
-                    v.x = v.z = .5f;
-                    v.y = 2f;
-                    b.size = v;
-
-                    lr.useWorldSpace = false;
+                    createLine(pos0, pos1);
+                        // link = Instantiate<GameObject>(Link, level.transform);
+                        // link.AddComponent<LineRenderer>();
+                        // lr = link.GetComponent<LineRenderer>();
+                        // lr.useWorldSpace = true;
+                        // lr.positionCount = 2;
+                        // lr.SetPosition(0,pos0);
+                        // lr.SetPosition(1, pos1);
+                        // links.Add(lr);
+                        // link_color.Add(0);
+                    // lr.useWorldSpace = true;
+                    // lr.positionCount += 1;
+                    // lr.SetPosition(lr.positionCount-1, nodes[which].transform.localPosition);
+                    // BoxCollider b = link.AddComponent<BoxCollider>();
+                    // createBox(b, pos0, pos1);
                     counter = 0;
+                    // link.AddComponent<BoxCollider>();
+                    // BoxCollider b = link.GetComponent<BoxCollider>();
+                    // createBox(b, pos0, pos1);              
+                    // lr.useWorldSpace = false;
                 }
                 else{
                     counter++;
@@ -104,11 +84,119 @@ public class Builder : MonoBehaviour
         }
         
     }
+    private void delLine(Ray ray){
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 20, 1<<9)){
+            GameObject g = hit.collider.gameObject;
+            if (g.tag=="Link"){
+
+                Destroy(g);
+            }
+        }
+    }
     private void addPlat(Ray ray){
-   
-        
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 20, 1<<9)){
+            GameObject g = hit.collider.gameObject;
+            if (g.tag=="Platform"){
+                Platform p = g.GetComponent<Platform>();
+                p.Enable(!p.enabled);
+            }
+        }
     }
     private void recolor(Ray ray){
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 20, 1<<9))
+        {
+            GameObject g = hit.collider.gameObject;
+
+            if (g.tag == "Link"){
+                g.GetComponent<LineRenderer>().material = link_materials[mat_counter];
+                g.name = g.name.Substring(0,7) + mat_counter;
+            }
+            else if (g.tag == "Platform")
+                g.GetComponent<MeshRenderer>().material = plat_materials[mat_counter];
+
+            mat_counter =( mat_counter + 1) % 3;
+        }
     }
+
+    public void switchMode(){
+        mode = (mode+1) % 4;
+        if (mode == 0)
+            debugOut.text = "ADD LINE";
+        else if (mode == 1) 
+            debugOut.text = "DEL LINE";
+        else if (mode == 2) 
+            debugOut.text = "PLATFORM"; 
+        else if (mode == 3) 
+            debugOut.text = "COLORING"; 
+    }
+
+    public void createLine(int mat_id, int posC, Vector3[] poses){
+        GameObject link = Instantiate<GameObject>(Link, level.transform);
+        link.name = "Link_" + numLink + "_" + mat_id;        
+        link.AddComponent<LineRenderer>();
+        LineRenderer lr = link.GetComponent<LineRenderer>();
+        lr.material = link_materials[mat_id];
+        lr.useWorldSpace = true;
+        lr.positionCount = posC;
+        lr.SetPositions(poses);
+
+        // links.Add(lr);
+        // link_color.Add(mat_id);
+
+        int n_b = (poses.Length % 2) * 2;
+        int i, j;
+        i = j = 0;
+        do{
+            BoxCollider b = link.AddComponent<BoxCollider>();
+            createBox(b, poses[j], poses[++j]);              
+            i++;
+        }while(i < n_b);
+        lr.useWorldSpace = false;
+        numLink++;
+    }
+    public void createLine(Vector3 pos0, Vector3 pos1){
+        GameObject link = Instantiate<GameObject>(Link, level.transform);
+        link.name = "Link_" + numLink + "_0";
+        link.AddComponent<LineRenderer>();
+        LineRenderer lr = link.GetComponent<LineRenderer>();
+        lr.material = link_materials[0];
+        lr.useWorldSpace = true;
+        lr.positionCount = 2;
+        lr.SetPosition(0, pos0);
+        lr.SetPosition(1, pos1);
+
+        BoxCollider b = link.AddComponent<BoxCollider>();
+        createBox(b, pos0, pos1);              
+        lr.useWorldSpace = false;
+        numLink++;
+
+    }
+    void appendLine(){
+
+    }
+    void createBox(BoxCollider b, Vector3 pos0, Vector3 pos1){
+        Vector3 v = new Vector3();
+        v.x = (pos1.x + pos0.x) / 2;
+        v.y = (pos1.y + pos0.y) / 2;
+        v.z = (pos1.z + pos0.z) / 2;
+        b.center = v;
+
+        v.x = Mathf.Abs(pos0.x - pos1.x);
+        if (v.x == 0)
+            v.x = 0.5f;
+        
+        v.y = Mathf.Abs(pos0.y - pos1.y);
+        if (v.y == 0)
+            v.y = 0.5f;
+            
+        v.z = Mathf.Abs(pos0.z - pos1.z);
+        if (v.z == 0)
+            v.z = 0.5f;
+        b.size = v;
+    }
+    
 
 }

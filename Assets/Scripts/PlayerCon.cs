@@ -36,6 +36,7 @@ public class PlayerCon : MonoBehaviour
                 if(Physics.Raycast(r, out hit, 20, 1<<9)){  // Max distance may be reduced
                     Platform p = hit.collider.GetComponent<Platform>();
                     p.updateRnC();
+                    
                     for (int i = 0, k=0, l=0,j = 0; j < 27; j++){
                         level.platforms[j].updateRnC();
                         if (i < 9 && level.platforms[j].row == p.row)

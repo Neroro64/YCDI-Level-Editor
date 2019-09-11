@@ -12,13 +12,17 @@ public class Platform : MonoBehaviour
     public int column;
     public int z;
     // Transform parent;
-    bool enabled = false;
+    public bool enabled;
+    private Material m;
     private void Start() {
         level = transform.parent.gameObject.GetComponent<Level>();
+        enabled = false;
+        m = GetComponent<MeshRenderer>().material;
         updateRotation();
         updatePosition();
         updateRnC();
-        Enable();
+        Enable(enabled);
+
     }
 
     public void resetRot(){
@@ -45,14 +49,14 @@ public class Platform : MonoBehaviour
         transform.SetParent(level.transform);
     }
 
-    public void Enable(){
-        enabled = !enabled;
+    public void Enable(bool t){
+        enabled = t;
         MeshRenderer mr = this.GetComponent<MeshRenderer>();
-        if (enabled)
-            mr.material = level.materials[0];
+        if (enabled){
+            mr.material = m;
+        }
         else
             mr.material = level.materials[1];
-        
     }
 
 }
