@@ -8,14 +8,11 @@ public class CameraCon : MonoBehaviour
     [Header("Public Object References")]
     public Level level;
     public SystemController sys;
-    public GameObject fColliders; //For checking facing direction
     [Header("Variables")]
-    public float scalSpeed;
 
     /*Private variables for rotation and scaling */
     bool isRotating = false;
     bool isScaling = false;
-    bool isInverted = false;
     bool finalizeRotation = false;
     Quaternion startRotation;
     Quaternion finalRotation;
@@ -34,19 +31,7 @@ public class CameraCon : MonoBehaviour
     {
         if (sys.mode == 0 && !EventSystem.current.IsPointerOverGameObject()){
             if (Input.GetMouseButtonDown(0)){
-                /*Check first the facing direction of the level */
-                    // RaycastHit hit;
-                    // Ray ray = main.ScreenPointToRay(main.transform.position);
-                    // if (Physics.Raycast(ray, out hit, 10, 1<<8)) // Max distance can be reduced. 
-                    // {
-                    //     if (hit.collider.gameObject.tag == "xyz") isInverted = false;
-                    //     else isInverted = true;
-                    // }
-                    // else 
-                    //     isInverted = false;
                 isRotating = true;
-                
-                
             }
             else if (Input.GetMouseButtonUp(0)){
                 isRotating = false;
@@ -88,15 +73,13 @@ public class CameraCon : MonoBehaviour
             float inputY = Input.GetAxis("Mouse Y");
             Quaternion rot = ControlFunctions.calcRot1D(inputX, inputY, sys.rotSpeed);
             level.transform.Rotate(rot.eulerAngles, Space.World);
-            // fColliders.transform.LookAt(main.transform.forward);
-            // fColliders.transform.rotation = Quaternion.Euler(0, fColliders.transform.rotation.eulerAngles.y, 0);
             
             foreach (Platform p in level.platforms)   // Can be optimized here
             {
                 p.resetRot();
             }
         }
-        else if (isScaling){
+        else if (isScaling){    // There is a bug when scaling up and down too fast
             float scaling = Input.GetAxis("Mouse X") * Time.deltaTime;
             accScale += scaling;
             accScale = Mathf.Clamp(accScale, 1, 1.5f); // need to tuned

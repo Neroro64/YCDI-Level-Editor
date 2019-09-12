@@ -6,9 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SystemController : MonoBehaviour
 {
-    // [Header("STATIC")]
-    // [SerializeField]
-    // private static float version;
     [SerializeField]
     private static bool inMenu = true;
     private static int saveID;
@@ -51,11 +48,9 @@ public class SystemController : MonoBehaviour
             initRotSpeed = rotSpeed;
             if (newFile){
                 saveID = SL.saves+1;
-                Debug.Log("saveID: " + saveID);
             }
             else
             {
-                Debug.Log("LOADING: " + saveID);
                 StartCoroutine(LOADING());
             }
         }
@@ -75,17 +70,15 @@ public class SystemController : MonoBehaviour
         saveID = options.value;
         newFile = false;
         inMenu = false;
-        Debug.Log("WILL load: " + saveID);
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void save(){
         SL.save(saveID, level, builder, newFile);
-        Debug.Log("saved to ID: " + saveID);
     }
 
     public void returnToMenu(){
-        save();
+        // save();
         inMenu = true;
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }

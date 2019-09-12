@@ -19,9 +19,6 @@ public class Builder : MonoBehaviour
     int counter = 0;
     int mat_counter = 1;
     int numLink = 0;
-    public List<LineRenderer> links = new List<LineRenderer>();
-    public List<int> link_color = new List<int>();
-    // List<LineRenderer> links = new List<LineRenderer>();
     private int mode = 0; // 0 = line, 1 =  platform, 2 = change color
     private void Update() {
         if (sys.mode == 2 && !EventSystem.current.IsPointerOverGameObject()){
@@ -50,32 +47,11 @@ public class Builder : MonoBehaviour
             if (p != null && p.enabled){
                 nodes[counter] = g;
                 if (counter == 1){
-                    // GameObject link;
-                    // LineRenderer lr;
-
                     Vector3 pos0 =  nodes[0].transform.localPosition;
                     Vector3 pos1 =  nodes[1].transform.localPosition;
 
                     createLine(pos0, pos1);
-                        // link = Instantiate<GameObject>(Link, level.transform);
-                        // link.AddComponent<LineRenderer>();
-                        // lr = link.GetComponent<LineRenderer>();
-                        // lr.useWorldSpace = true;
-                        // lr.positionCount = 2;
-                        // lr.SetPosition(0,pos0);
-                        // lr.SetPosition(1, pos1);
-                        // links.Add(lr);
-                        // link_color.Add(0);
-                    // lr.useWorldSpace = true;
-                    // lr.positionCount += 1;
-                    // lr.SetPosition(lr.positionCount-1, nodes[which].transform.localPosition);
-                    // BoxCollider b = link.AddComponent<BoxCollider>();
-                    // createBox(b, pos0, pos1);
                     counter = 0;
-                    // link.AddComponent<BoxCollider>();
-                    // BoxCollider b = link.GetComponent<BoxCollider>();
-                    // createBox(b, pos0, pos1);              
-                    // lr.useWorldSpace = false;
                 }
                 else{
                     counter++;
@@ -142,9 +118,6 @@ public class Builder : MonoBehaviour
         lr.useWorldSpace = true;
         lr.positionCount = posC;
         lr.SetPositions(poses);
-
-        // links.Add(lr);
-        // link_color.Add(mat_id);
 
         int n_b = (poses.Length % 2) * 2;
         int i, j;

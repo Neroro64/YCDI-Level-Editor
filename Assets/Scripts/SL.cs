@@ -9,7 +9,7 @@ public class SL : ScriptableObject{
     [SerializeField]
     public static int saves;
     public static void init(){
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
         version = PlayerPrefs.GetFloat("Version", -1);
         if (version == -1)
             PlayerPrefs.SetFloat("Version", 1.0f);
@@ -18,8 +18,6 @@ public class SL : ScriptableObject{
         if (saves == -1){
             PlayerPrefs.SetInt("Saves", -1);
         }
-        // Debug.ClearDeveloperConsole();
-        // Debug.Log("SAVES: " + saves);
     }
 
 
@@ -30,8 +28,7 @@ public class SL : ScriptableObject{
     -> L: number of links
     -> for each link: 
     ->  M: material index
-    ->  S: number of points
-    ->  Followed by S Vector3 coordinates for each of the points
+    ->  Followed by 2 Vector3 coordinates for each of the points
  */
     public static void save(int id, Level level, Builder builder, bool newSave){ 
         string savePath = Path.Combine(Application.persistentDataPath, "save_"+id);
@@ -50,7 +47,6 @@ public class SL : ScriptableObject{
             
             
             int mat_id = 0;
-            // LineRenderer lr;
             Vector3 pos;
             LineRenderer[] links = level.GetComponentsInChildren<LineRenderer>();
             writer.Write(links.Length);  // number of links
@@ -67,22 +63,10 @@ public class SL : ScriptableObject{
                 writer.Write(pos.y);
                 writer.Write(pos.z);
             }
-            // for (int i = 0; i < builder.links.Count; i++){
-            //     mat_id = builder.link_color[i];
-            //     lr =  builder.links[i];
-            //     // posC =lr.positionCount;
-            //     writer.Write(mat_id);   // material id
-            //     // writer.Write(posC);     // number of positions
-            //     for (int j = 0; j < posC; j++){
-            //         pos = lr.GetPosition(j);
-            //         writer.Write(pos.x);
-            //         writer.Write(pos.y);
-            //         writer.Write(pos.z);
-            //     }
-            // }
         }
 
         if (newSave){
+
             PlayerPrefs.SetInt("Saves", saves+1);
             PlayerPrefs.Save();
         }
@@ -95,8 +79,7 @@ public class SL : ScriptableObject{
     -> L: number of links
     -> for each link: 
     ->  M: material index
-    ->  S: number of points
-    ->  Followed by S Vector3 coordinates for each of the points
+    ->  Followed by 2 Vector3 coordinates for each of the points
  */
     public static void load(int save_id, Level level, Builder builder){
         string savePath = Path.Combine(Application.persistentDataPath, "save_"+save_id);       
@@ -112,7 +95,6 @@ public class SL : ScriptableObject{
             int l = reader.ReadInt32();
             for (int i = 0; i < l; i++){
                 int mat_id = reader.ReadInt32();
-                // int posC = reader.ReadInt32();
                 Vector3[] poses = new Vector3[2];
                 for ( int j = 0; j < 2; j++){
                     poses[j].x = reader.ReadSingle();

@@ -13,7 +13,6 @@ public class PlayerCon : MonoBehaviour
     Transform rotator;
 
     [Header("Public variables")]
-    int tR, tC;
     bool isRotating = false;
     Platform[] hP = new Platform[9];
     Platform[] vP = new Platform[9];
