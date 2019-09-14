@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class SystemController : MonoBehaviour
 {
     [SerializeField]
+    public static bool isOnAndroid;
     private static bool inMenu = true;
     private static int saveID;
     private static bool newFile = false;
@@ -18,6 +19,7 @@ public class SystemController : MonoBehaviour
     public int rotSpeed;
     public int initRotSpeed;
     public Text debugOut;
+    public Text filename;
     public Level level;
     public Builder builder;
     
@@ -37,6 +39,9 @@ public class SystemController : MonoBehaviour
 
     private void Start() {
         if (inMenu){
+            if (Application.platform == RuntimePlatform.Android)
+                isOnAndroid = true;
+                
             SL.init();
             List<Dropdown.OptionData> opts = new List<Dropdown.OptionData>();
             for (int i = 0; i <= SL.saves; i++){
@@ -54,6 +59,8 @@ public class SystemController : MonoBehaviour
                 StartCoroutine(LOADING());
             }
         }
+
+        filename.text = "Save: " + saveID;        
     }
     public void restart(){
         Scene scene = SceneManager.GetActiveScene(); 

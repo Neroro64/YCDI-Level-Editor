@@ -16,7 +16,7 @@ public class Platform : MonoBehaviour
     private Material m;
     private void Start() {
         level = transform.parent.gameObject.GetComponent<Level>();
-        enabled = false;
+        enabled = true;
         m = GetComponent<MeshRenderer>().material;
         updateRotation();
         updatePosition();

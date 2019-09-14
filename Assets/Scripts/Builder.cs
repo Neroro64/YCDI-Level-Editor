@@ -21,14 +21,32 @@ public class Builder : MonoBehaviour
     int numLink = 0;
     private int mode = 0; // 0 = line, 1 =  platform, 2 = change color
     private void Update() {
-        if (sys.mode == 2 && !EventSystem.current.IsPointerOverGameObject()){
-            if (Input.GetMouseButtonDown(0)){
-                Ray ray = main.ScreenPointToRay(Input.mousePosition);
-                switch(mode){
-                    case 0: addLine(ray); break;
-                    case 1: delLine(ray); break;
-                    case 2: addPlat(ray); break;
-                    case 3: recolor(ray); break;
+        if (sys.mode == 2 && !EventSystem.current.IsPointerOverGameObject(0)){
+            if (SystemController.isOnAndroid){
+                if (Input.touchCount == 1){
+                    Touch t = Input.GetTouch(0);
+                    if (t.phase == TouchPhase.Began)
+                    {
+                        Ray ray = main.ScreenPointToRay(t.position);
+                        switch(mode){
+                        case 0: addLine(ray); break;
+                        case 1: delLine(ray); break;
+                        case 2: addPlat(ray); break;
+                        case 3: recolor(ray); break;
+                    }
+
+                    }
+                }
+            }
+            else{
+                if (Input.GetMouseButtonDown(0)){
+                    Ray ray = main.ScreenPointToRay(Input.mousePosition);
+                    switch(mode){
+                        case 0: addLine(ray); break;
+                        case 1: delLine(ray); break;
+                        case 2: addPlat(ray); break;
+                        case 3: recolor(ray); break;
+                    }
                 }
             }
         }

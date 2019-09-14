@@ -17,7 +17,7 @@ public class SL : ScriptableObject{
         saves = PlayerPrefs.GetInt("Saves", -1);
         if (saves == -1){
             PlayerPrefs.SetInt("Saves", -1);
-        }
+        }   
     }
 
 
