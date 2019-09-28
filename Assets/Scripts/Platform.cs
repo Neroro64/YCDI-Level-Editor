@@ -14,6 +14,7 @@ public class Platform : MonoBehaviour
     // Transform parent;
     public bool enabled;
     private Material m;
+    public int id;
     private void Start() {
         level = transform.parent.gameObject.GetComponent<Level>();
         enabled = true;
@@ -22,7 +23,10 @@ public class Platform : MonoBehaviour
         updatePosition();
         updateRnC();
         Enable(enabled);
-
+        int a = (int) (transform.position.x + 2) / 2;
+        int b = (int) Mathf.Abs((transform.position.z - 2) / 2);
+        int c = (int) Mathf.Abs((transform.position.y - 2) / 2);
+        id = c*9+b*3+a;
     }
 
     public void resetRot(){

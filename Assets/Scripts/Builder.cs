@@ -20,6 +20,9 @@ public class Builder : MonoBehaviour
     int mat_counter = 1;
     int numLink = 0;
     private int mode = 0; // 0 = line, 1 =  platform, 2 = change color
+
+    ArrayList links = new ArrayList();
+   
     private void Update() {
         if (sys.mode == 2 && !EventSystem.current.IsPointerOverGameObject(0)){
             if (SystemController.isOnAndroid){
@@ -33,6 +36,7 @@ public class Builder : MonoBehaviour
                         case 1: delLine(ray); break;
                         case 2: addPlat(ray); break;
                         case 3: recolor(ray); break;
+                        case 4: delPlat(ray); break;
                     }
 
                     }
@@ -46,6 +50,7 @@ public class Builder : MonoBehaviour
                         case 1: delLine(ray); break;
                         case 2: addPlat(ray); break;
                         case 3: recolor(ray); break;
+                        case 4: delPlat(ray); break;
                     }
                 }
             }
@@ -86,6 +91,10 @@ public class Builder : MonoBehaviour
 
                 Destroy(g);
             }
+            if (g.tag == "Platform"){
+                Platform p = g.GetComponent<Platform>();
+                p.Enable(false);
+            }
         }
     }
     private void addPlat(Ray ray){
@@ -94,7 +103,23 @@ public class Builder : MonoBehaviour
             GameObject g = hit.collider.gameObject;
             if (g.tag=="Platform"){
                 Platform p = g.GetComponent<Platform>();
-                p.Enable(!p.enabled);
+                if (!p.enabled)
+                    p.Enable(true);
+
+            }
+        }
+    }
+     private void delPlat(Ray ray){
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 20, 1<<9)){
+            GameObject g = hit.collider.gameObject;
+            if (g.tag=="Platform"){
+                Platform p = g.GetComponent<Platform>();
+                if(p.enabled){
+                    p.Enable(false);
+                    checkLinks();
+                }
+
             }
         }
     }
@@ -116,7 +141,7 @@ public class Builder : MonoBehaviour
     }
 
     public void switchMode(){
-        mode = (mode+1) % 4;
+        mode = (mode+1) % 5;
         if (mode == 0)
             debugOut.text = "ADD LINE";
         else if (mode == 1) 
@@ -125,8 +150,32 @@ public class Builder : MonoBehaviour
             debugOut.text = "PLATFORM"; 
         else if (mode == 3) 
             debugOut.text = "COLORING"; 
+        else if (mode == 4) 
+            debugOut.text = "SOLV"; 
+        
     }
 
+    void checkLinks(){
+        List<GameObject> lg = new List<GameObject>();
+        foreach(GameObject link in links){
+            Link l = link.GetComponent<Link>();
+            if (l.endPoints == null)
+                Debug.Log("ENDPOINT NULL");
+            else if (l.endPoints[0] == null)
+                Debug.Log("ENDPOINT 1 NULL");
+            else if (l.endPoints[1] == null){
+                Debug.Log("ENDPOINT 2 NULL");
+                Debug.Log(link.name);
+            }
+            if (!(l.endPoints[0].enabled || l.endPoints[1].enabled)){
+                lg.Add(link);                
+            }
+        }
+        foreach(GameObject link in lg){
+            links.Remove(link);
+            Destroy(link);
+        }
+    }
     public void createLine(int mat_id, int posC, Vector3[] poses){
         GameObject link = Instantiate<GameObject>(Link, level.transform);
         link.name = "Link_" + numLink + "_" + mat_id;        
@@ -147,6 +196,35 @@ public class Builder : MonoBehaviour
         }while(i < n_b);
         lr.useWorldSpace = false;
         numLink++;
+
+          Platform g1, g2;
+        g1 = g2 = null;
+        int d = (int) (poses[0].x + 2) / 2;
+        int e = (int) Mathf.Abs((poses[0].z - 2) / 2);
+        int f = (int) Mathf.Abs((poses[0].y - 2) / 2);
+        
+        int id1 = d+e*3+f*9;
+        d = (int) (poses[1].x + 2) / 2;
+        e = (int) Mathf.Abs((poses[1].z - 2) / 2);
+        f = (int) Mathf.Abs((poses[1].y - 2) / 2);
+        int id2 = d+e*3+f*9;
+        foreach(Platform p in level.platforms){
+            if (p.id == id1)
+                g1 = p;
+            else if (p.id == id2)
+                g2 = p;
+            
+            if (g1 != null && g2 != null)
+                break;
+        }
+
+        if (g2 == null){
+            Debug.Log(id1 + ", "+id2);
+        }
+        link.GetComponent<Link>().endPoints[0] = g1;
+        link.GetComponent<Link>().endPoints[1] = g2;
+
+        links.Add(link);
     }
     public void createLine(Vector3 pos0, Vector3 pos1){
         GameObject link = Instantiate<GameObject>(Link, level.transform);
@@ -159,14 +237,39 @@ public class Builder : MonoBehaviour
         lr.SetPosition(0, pos0);
         lr.SetPosition(1, pos1);
 
-        BoxCollider b = link.AddComponent<BoxCollider>();
-        createBox(b, pos0, pos1);              
+        // BoxCollider b = link.AddComponent<BoxCollider>();
+        // createBox(b, pos0, pos1);              
         lr.useWorldSpace = false;
         numLink++;
 
-    }
-    void appendLine(){
+        Platform g1, g2;
+        g1 = g2 = null;
+        int d = (int) (pos0.x + 2) / 2;
+        int e = (int) Mathf.Abs((pos0.z - 2) / 2);
+        int f = (int) Mathf.Abs((pos0.y - 2) / 2);
+        
+        int id1 = d+e*3+f*9;
+        d = (int) (pos1.x + 2) / 2;
+        e = (int) Mathf.Abs((pos1.z - 2) / 2);
+        f = (int) Mathf.Abs((pos1.y - 2) / 2);
+        int id2 = d+e*3+f*9;
+        foreach(Platform p in level.platforms){
+            if (p.id == id1)
+                g1 = p;
+            else if (p.id == id2)
+                g2 = p;
+            
+            if (g1 != null && g2 != null)
+                break;
+        }
 
+        if (g2 == null){
+            Debug.Log(id1 + ", "+id2);
+        }
+        link.GetComponent<Link>().endPoints[0] = g1;
+        link.GetComponent<Link>().endPoints[1] = g2;
+
+        links.Add(link);
     }
     void createBox(BoxCollider b, Vector3 pos0, Vector3 pos1){
         Vector3 v = new Vector3();
@@ -189,5 +292,29 @@ public class Builder : MonoBehaviour
         b.size = v;
     }
     
+    public void generate(){
+        ArrayList edges = Level_Gen.build();
+        foreach (int[][] e in edges){
+            int x,y,z;
+            y = which(e[0][0], 1);
+            z = which(e[0][1], 2);
+            x = which(e[0][2], 0);
+            Vector3 start = new Vector3(x,y,z);
+            y = which(e[1][0], 1);
+            z = which(e[1][1], 2);
+            x = which(e[1][2], 0);
+            Vector3 end = new Vector3(x,y,z);
+            createLine(start, end);
+        }
+    }
+    
+    int which(int i, int c){
+        switch(i){
+            case 0: return (c == 0)? -2:2;
+            case 1: return 0;
+            case 2: return (c == 0)? 2:-2;
+            default: return -1;
+        }
+    }
 
 }

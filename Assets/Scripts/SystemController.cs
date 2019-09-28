@@ -36,6 +36,10 @@ public class SystemController : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         SL.load(saveID, level, builder);
     }
+    IEnumerator Generate(){
+        yield return new WaitForSeconds(.5f);
+        builder.generate();
+    }
 
     private void Start() {
         if (inMenu){
@@ -53,14 +57,15 @@ public class SystemController : MonoBehaviour
             initRotSpeed = rotSpeed;
             if (newFile){
                 saveID = SL.saves+1;
+                StartCoroutine(Generate());
             }
             else
             {
                 StartCoroutine(LOADING());
             }
         }
-
-        filename.text = "Save: " + saveID;        
+        filename.text = "Save: " + saveID;   
+             
     }
     public void restart(){
         Scene scene = SceneManager.GetActiveScene(); 
